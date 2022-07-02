@@ -36,6 +36,22 @@ namespace FYP.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Required(ErrorMessage = "You must enter the name first before submitting your form!")]
+            [StringLength(256, ErrorMessage = "You must enter the value between 6 - 256 chars", MinimumLength = 6)]
+            [Display(Name = "Your Full Name")] //label
+            public string fullname { get; set; }
+
+            [Required]
+            [Display(Name = "Your DOB")]
+            [DataType(DataType.Date)]
+            public DateTime DoB { get; set; }
+
+            [Required]
+            [Display(Name = "ID")]
+            [StringLength(12, ErrorMessage = "Please enter a valid ID number", MinimumLength = 12)]
+            public string ID { get; set; }
+
         }
 
         private async Task LoadAsync(FYPUser user)
@@ -47,7 +63,11 @@ namespace FYP.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                fullname = user.FullName,
+                DoB = user.DOB,
+                ID = user.NRIC,
+
             };
         }
 
@@ -87,6 +107,24 @@ namespace FYP.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+
+            if (Input.fullname != user.FullName)
+            {
+                user.FullName = Input.fullname;
+            }
+
+            if (Input.DoB != user.DOB)
+            {
+                user.DOB = Input.DoB;
+            }
+
+            if (Input.ID != user.NRIC)
+            {
+                user.NRIC = Input.ID;
+            }
+
+            await _userManager.UpdateAsync(user);
+
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

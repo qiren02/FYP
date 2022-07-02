@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20220701143557_CustomUserData.cs" />
+    <Compile Remove="Migrations\20220701143557_CustomUserData.Designer.cs" />
+    <Compile Remove="Migrations\20220701150343_CustomUserData.cs" />
+    <Compile Remove="Migrations\20220701150343_CustomUserData.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.25" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.25" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.25" />
